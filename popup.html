@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Text Saver Popup</title>
+  
+  <style>
+
+body {
+  background: #1e2939;
+  color: #fff;
+  width: 350px;
+  padding: 10px;
+  font-family: Arial, sans-serif;  
+}
+    h2 {
+      color: #fff;
+      margin-top: 0; 
+    }
+
+    #textList li {
+      position: relative;
+      margin: 10px 0;  
+      padding: 10px;
+      list-style: none;
+      border: 2px solid #8ab6d6;
+      border-radius: 5px;
+    }
+    
+    #textList button {
+      padding: 5px 7px;
+      font-size: 12px; 
+    }
+              
+ #copyAll,
+#clearAll {
+  background: #445b82;
+  border: none;
+  color: #fff; 
+  padding: 8px 12px;
+  cursor: pointer; 
+}
+  </style>
+
+</head>
+
+<body>
+
+  <h2>Saved Texts</h2>  
+
+  <ul id="textList"></ul>
+
+  <button id="copyAll">Copy All</button>
+  
+  <button id="clearAll">Clear All</button>
+
+  <script src="popup.js"></script>
+
+</body>
+
+</html>

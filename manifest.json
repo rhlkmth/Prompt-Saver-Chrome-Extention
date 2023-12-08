@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+  "name": "Text Saver",
+  "version": "1.0",
+  "description": "Save and copy text from web pages",
+
+  "permissions": ["contextMenus", "storage"],
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+
+  "icons": {
+    "48": "icon.png"
+  },
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+
+  "commands": {
+    "saveText": {
+      "suggested_key": {
+        "default": "Ctrl+S"
+      },
+      "description": "Save selected text"
+    }
+  }
+}
