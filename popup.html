@@ -32,13 +32,19 @@ body {
       font-size: 12px; 
     }
               
- #copyAll,
+#copyAll, 
 #clearAll {
   background: #445b82;
   border: none;
-  color: #fff; 
+  color: #fff;
   padding: 8px 12px;
-  cursor: pointer; 
+  cursor: pointer;
+  transition: color 0.2s; /* add transition */
+}
+
+#copyAll:hover,
+#clearAll:hover {
+   color: #ddd; /* lighter color */
 }
   </style>
 
