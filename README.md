@@ -5,7 +5,10 @@ barebones clipboard extension for saving prompts or text with right click
 ![icon](https://github.com/rhlkmth/Prompt-Saver-Chrome-Extention/assets/16479173/713d9b09-1272-426e-b669-475cd0bc75b8)
 
 
-Unable to find a Chrome extension for saving AI art prompts, I set out to create a simple one of my own. This extension allows you to easily bookmark prompts used on sites like Stable Diffusion, DALL-E, and MidJourney.
+Unable to find a Chrome extension for saving AI art prompts, I set out to create a simple one of my own using chatGPT and Claude.ai
+
+
+This extension allows you to easily bookmark prompts used on sites like Stable Diffusion, DALL-E, and MidJourney.
 
 As you generate images, select text and right click save. Revisit your collected prompts anytime by clicking the extension. It stores everything cleanly so you can rerun favorites or tweak prompts to iterate on ideas.
 
