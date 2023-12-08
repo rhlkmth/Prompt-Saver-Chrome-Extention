@@ -1,76 +1,101 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function() {
 
   // Load saved texts
   loadSavedTexts();
 
-  // Text list click event
-  document.getElementById("textList").addEventListener("click", (event) => {
-    const target = event.target;
-    if (target.tagName === "BUTTON") {
-      const textItem = target.parentNode;
-
-      if (target.classList.contains("copyBtn")) {
-        copyToClipboard(textItem.textContent);
-        showToast("Copied!");
-      } else if (target.classList.contains("clearBtn")) {
-        clearText(textItem);
-        loadSavedTexts();
-      }
+  // Copy and delete button click
+ document.getElementById("textList").addEventListener("click", function(event) {
+  if (event.target.tagName === "BUTTON") {
+    if (event.target.classList.contains("copyBtn")) {
+      copyToClipboard(event.target.previousSibling.textContent);
+      showToast("Copied!");
+    } else if (event.target.classList.contains("deleteBtn")) {
+      deleteText(event.target.parentNode.firstChild.textContent); // Select only textNode
+      loadSavedTexts();
     }
-  });
-
+  }
+});
   // Copy all texts
-  document.getElementById("copyAll").addEventListener("click", () => {
-    const allText = "";
-    const textItems = document.querySelectorAll("#textList li");
-    textItems.forEach((li) => {
+  document.getElementById("copyAll").addEventListener("click", function() {
+    
+    var allText = "";
+    var lis = document.querySelectorAll("#textList li");
+    lis.forEach(function(li) {
       allText += li.textContent + "\n";
     });
+    
     copyToClipboard(allText);
     showToast("Copied all!");
+    
   });
 
   // Clear all saved texts
-  document.getElementById("clearAll").addEventListener("click", () => {
+  document.getElementById("clearAll").addEventListener("click", function() {
+    
     savedTexts = [];
     localStorage.setItem("savedTexts", JSON.stringify(savedTexts));
     loadSavedTexts();
+    
   });
+
 });
 
 // Existing functions
 function loadSavedTexts() {
+
   // Get saved texts
-  const savedTexts = JSON.parse(localStorage.getItem("savedTexts")) || [];
+  let savedTexts = JSON.parse(localStorage.getItem("savedTexts")) || [];
 
-  // Clear and populate text list
-  const textList = document.getElementById("textList");
+  // Populate text list
+  var textList = document.getElementById("textList");
   textList.innerHTML = "";
-  savedTexts.forEach((text) => {
-    const li = document.createElement("li");
-    const copyButton = document.createElement("button");
-    const clearButton = document.createElement("button");
-
+  savedTexts.forEach(function(text) {
+    
+    // Create elements
+    var li = document.createElement("li");
+    var copyButton = document.createElement("button");
+    var deleteButton = document.createElement("button");
+    
+    // Populate
     li.textContent = text;
     copyButton.textContent = "Copy";
-    clearButton.textContent = "Clear";
-
+    deleteButton.textContent = "Delete";
+    
+    // Add classes
     copyButton.classList.add("copyBtn");
-    clearButton.classList.add("clearBtn");
-
+    deleteButton.classList.add("deleteBtn");
+  
+    // Append
     li.appendChild(copyButton);
-    li.appendChild(clearButton);
+    li.appendChild(deleteButton);
+   
     textList.appendChild(li);
   });
+
 }
 
-function clearText(textItem) {
-  // Remove the text content and element from the DOM
-  textItem.textContent = "";
-  textItem.parentNode.removeChild(textItem);
 
-  // Update saved texts and local storage
-  const text = textItem.textContent;
-  savedTexts = savedTexts.filter((savedText) => savedText !== text);
+function copyToClipboard(text) {
+
+  var textarea = document.createElement("textarea");
+  textarea.value = text;
+  
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+}
+
+function deleteText(text) {
+  // Get saved texts
+  let savedTexts = JSON.parse(localStorage.getItem("savedTexts")) || [];
+  
+  // Remove the text from the array
+  const index = savedTexts.indexOf(text);
+  if (index !== -1) {
+    savedTexts.splice(index, 1);
+  }
+
+  // Update local storage
   localStorage.setItem("savedTexts", JSON.stringify(savedTexts));
 }
