@@ -16,18 +16,17 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
   // Copy all texts
-  document.getElementById("copyAll").addEventListener("click", function() {
-    
-    var allText = "";
-    var lis = document.querySelectorAll("#textList li");
-    lis.forEach(function(li) {
-      allText += li.textContent + "\n";
-    });
-    
-    copyToClipboard(allText);
-    showToast("Copied all!");
-    
+ document.getElementById("copyAll").addEventListener("click", function() {
+  var allText = "";
+  var lis = document.querySelectorAll("#textList li");
+  lis.forEach(function(li) {
+    allText += li.childNodes[0].textContent + "\n"; // Changed from li.textContent to li.childNodes[0].textContent
   });
+  
+  copyToClipboard(allText);
+  showToast("Copied all!");
+
+});
 
   // Clear all saved texts
   document.getElementById("clearAll").addEventListener("click", function() {
