@@ -1,77 +1,76 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
 
   // Load saved texts
   loadSavedTexts();
 
-  // Copy button click
-  document.getElementById("textList").addEventListener("click", function(event) {
-    if (event.target.tagName === "BUTTON") {
-      copyToClipboard(event.target.previousSibling.textContent); 
+  // Text list click event
+  document.getElementById("textList").addEventListener("click", (event) => {
+    const target = event.target;
+    if (target.tagName === "BUTTON") {
+      const textItem = target.parentNode;
+
+      if (target.classList.contains("copyBtn")) {
+        copyToClipboard(textItem.textContent);
+        showToast("Copied!");
+      } else if (target.classList.contains("clearBtn")) {
+        clearText(textItem);
+        loadSavedTexts();
+      }
     }
   });
 
   // Copy all texts
-  document.getElementById("copyAll").addEventListener("click", function() {
-    
-    var allText = "";
-    var lis = document.querySelectorAll("#textList li");
-    lis.forEach(function(li) {
+  document.getElementById("copyAll").addEventListener("click", () => {
+    const allText = "";
+    const textItems = document.querySelectorAll("#textList li");
+    textItems.forEach((li) => {
       allText += li.textContent + "\n";
     });
-    
     copyToClipboard(allText);
-    
+    showToast("Copied all!");
   });
 
   // Clear all saved texts
-  document.getElementById("clearAll").addEventListener("click", function() {
-    
+  document.getElementById("clearAll").addEventListener("click", () => {
     savedTexts = [];
     localStorage.setItem("savedTexts", JSON.stringify(savedTexts));
     loadSavedTexts();
-    
   });
-
 });
-
 
 // Existing functions
 function loadSavedTexts() {
-
   // Get saved texts
-  let savedTexts = JSON.parse(localStorage.getItem("savedTexts")) || [];
+  const savedTexts = JSON.parse(localStorage.getItem("savedTexts")) || [];
 
-  // Populate text list
-  var textList = document.getElementById("textList");
+  // Clear and populate text list
+  const textList = document.getElementById("textList");
   textList.innerHTML = "";
-  savedTexts.forEach(function(text) {
-    
-    // Create elements
-    var li = document.createElement("li");
-    var copyButton = document.createElement("button");  
-    var removeButton = document.createElement("button");
-    
-    // Populate
+  savedTexts.forEach((text) => {
+    const li = document.createElement("li");
+    const copyButton = document.createElement("button");
+    const clearButton = document.createElement("button");
+
     li.textContent = text;
-    copyButton.textContent = "Copy";  
-  
-    
-    // Append
+    copyButton.textContent = "Copy";
+    clearButton.textContent = "Clear";
+
+    copyButton.classList.add("copyBtn");
+    clearButton.classList.add("clearBtn");
+
     li.appendChild(copyButton);
-   
+    li.appendChild(clearButton);
     textList.appendChild(li);
   });
-
 }
 
-function copyToClipboard(text) {
+function clearText(textItem) {
+  // Remove the text content and element from the DOM
+  textItem.textContent = "";
+  textItem.parentNode.removeChild(textItem);
 
-  var textarea = document.createElement("textarea");
-  textarea.value = text;
-  
-  document.body.appendChild(textarea);
-  textarea.select();
-  document.execCommand("copy");
-  document.body.removeChild(textarea);
-
+  // Update saved texts and local storage
+  const text = textItem.textContent;
+  savedTexts = savedTexts.filter((savedText) => savedText !== text);
+  localStorage.setItem("savedTexts", JSON.stringify(savedTexts));
 }
