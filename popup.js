@@ -15,12 +15,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 });
-  // Copy all texts
- document.getElementById("copyAll").addEventListener("click", function() {
+  // Copy all textsdocument.getElementById("copyAll").addEventListener("click", function() {
   var allText = "";
   var lis = document.querySelectorAll("#textList li");
   lis.forEach(function(li) {
-    allText += li.childNodes[0].textContent + "\n"; // Changed from li.textContent to li.childNodes[0].textContent
+    allText += li.childNodes[0].textContent + "\n\n"; // Changed from li.textContent to li.childNodes[0].textContent, and added an extra "\n"
   });
   
   copyToClipboard(allText);
@@ -37,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
   });
 
-});
+
 
 // Existing functions
 function loadSavedTexts() {
