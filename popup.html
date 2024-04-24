@@ -1,69 +1,27 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Text Saver Popup</title>
-  
-  <style>
-
-body {
-  background: #1e2939;
-  color: #fff;
-  width: 350px;
-  padding: 10px;
-  font-family: Arial, sans-serif;  
-}
-    h2 {
-      color: #fff;
-      margin-top: 0; 
-    }
-
-    #textList li {
-      position: relative;
-      margin: 10px 0;  
-      padding: 10px;
-      list-style: none;
-      border: 2px solid #8ab6d6;
-      border-radius: 5px;
-    }
-    
-    #textList button {
-      padding: 5px 7px;
-      font-size: 12px; 
-    }
-              
-#copyAll, 
-#clearAll {
-  background: #445b82;
-  border: none;
-  color: #fff;
-  padding: 8px 12px;
-  cursor: pointer;
-  transition: color 0.2s; /* add transition */
-  border-radius: 5px; /* add rounded corners */  
-
-}
-
-#copyAll:hover,
-#clearAll:hover {
-   color: #aaa; /* lighter color */
-}
-  </style>
-
+  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
-
-  <h2>Saved Texts</h2>  
-
-  <ul id="textList"></ul>
-
-  <button id="copyAll">Copy All</button>
-  
-  <button id="clearAll">Clear All</button>
-
+  <div class="container">
+    <h2>Text Saver</h2>
+    <!-- Remove dark mode toggle button -->
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search texts..." aria-label="Search texts">
+      <i class="fas fa-search"></i>
+    </div>
+    <ul id="textList" aria-label="List of saved texts"></ul>
+    <div class="button-container">
+      <button id="copyAll" aria-label="Copy all texts"><i class="fas fa-copy"></i> Copy All</button>
+      <button id="clearAll" aria-label="Clear all texts"><i class="fas fa-trash"></i> Clear All</button>
+    </div>
+  </div>
   <script src="popup.js"></script>
-
 </body>
-
 </html>
