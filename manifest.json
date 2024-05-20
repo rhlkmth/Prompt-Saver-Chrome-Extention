@@ -33,6 +33,18 @@
         "default": "Ctrl+S"
       },
       "description": "Save selected text"
+    },
+    "saveTextShortcut": {
+      "suggested_key": {
+        "default": "Alt+S"
+      },
+      "description": "Save selected text (Alt+S)"
+    },
+    "saveTextWithCtrlQ": {
+      "suggested_key": {
+        "default": "Ctrl+Q"
+      },
+      "description": "Save selected text with Ctrl+Q"
     }
   }
 }
